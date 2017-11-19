@@ -59,42 +59,43 @@ Global errorColor1
 Global iTime
 
 //////////////////////////////////////////////////////////////////
-x1 = 126	//第一个包的 x 坐标
-y1 = 127	//第一个包的 y 坐标
-y2 = 143	//第二个包的 y 坐标
+x1 = 125	//第一，二个包的 x 坐标
+y1 = 129	//第一个包的 y 坐标
+y2 = 146	//第二个包的 y 坐标
 
-renwu1_x = 727	//任务1的 x 坐标
-renwu1_y = 674	//任务1的 y 坐标
+renwu1_x = 304	//任务1的 x 坐标
+renwu1_y = 635	//任务1的 y 坐标
 
-renwu2_x = 1079	//任务2的 x 坐标
-renwu2_y = 674	//任务2的 y 坐标
+renwu2_x = 570	//任务2的 x 坐标
+renwu2_y = 635	//任务2的 y 坐标
 
 renwu1_Color_1 = "FEFEFE"	//任务 1 正在刷新的颜色
-renwu1_Color_2 = "7BB78"	//任务 1 没有刷新的颜色
+renwu1_Color_2 = "7BA77"	//任务 1 没有刷新的颜色
 
-renwu2_Color_1 = "7BB78"	//任务 2 没有刷新的颜色
+renwu2_Color_1 = "7BA77"	//任务 2 没有刷新的颜色
 renwu2_Color_2 = "FEFEFE"	//任务 2 正在刷新的颜色
 
-baoColor1 = "D7FF"	//第一个包的颜色
+baoColor1 = "FF"	//第一个包的颜色
 baoColor2 = "8000"	//第二个包的颜色
 
 errorColor1 = "A0A0A0"	//页面卡顿时的颜色
 
-iTime = 2500	//等待时间
+iTime = 3000	//等待时间
 
 /////////////////////////////////////////////////////////////////
 //移动到第一个包
 MoveTo x1, y1
-//等待 0.8 秒
-Delay 800
+//等待 2 秒
+Delay iTime
 //判断第一个包的颜色
 IfColor x1,y1,baoColor1,0 Then
     //鼠标点击选中第一个包
     LeftClick 1
     //按下键盘R发送包
-	//KeyPress "R", 1
+	KeyPress "R", 1
 End If
-
+//等待 2 秒
+Delay iTime
 //移动鼠标到任务 2
 MoveTo renwu2_x, renwu2_y
 //判断任务 2 是不是没有刷新
@@ -136,7 +137,7 @@ IfColor renwu2_x,renwu2_y,renwu2_Color_1,0 Then
     						//鼠标点击选中第二个包
     						LeftClick 1
     						//按下键盘R发送包
-							//KeyPress "R", 1
+							KeyPress "R", 1
 							Delay iTime
 							//脚本重新执行
     						RestartScript 
@@ -144,12 +145,49 @@ IfColor renwu2_x,renwu2_y,renwu2_Color_1,0 Then
     					
 					End If
 			Else 
-				MessageBox "任务 1 第二次刷新失败"
+				//MessageBox "任务 1 第二次刷新失败"
+				Delay iTime
+				IfColor renwu1_x,renwu1_y,renwu1_Color_1,0 Then
+    				//点击一次
+    				LeftClick 1
+    				//等待 3 秒
+					Delay iTime
+					//移动到第二个包的位置
+					MoveTo x1, y2
+					//判断第二个包的颜色
+					IfColor x1,y2,baoColor2,0 Then
+    					//鼠标点击选中第二个包
+    					LeftClick 1
+    					//按下键盘R发送包
+						KeyPress "R", 1
+						Delay iTime
+						//脚本重新执行
+    					RestartScript 
+					End If
+    				
+				End If
 
 			End If
 		Else    
-    		//第三个颜色不一样
-    		MessageBox "第一个任务不在刷新状态！！！"
+    		IfColor renwu1_x,renwu1_y,renwu1_Color_1,0 Then
+    			//点击一次
+    			LeftClick 1
+    			//等待 3 秒
+				Delay iTime
+				//移动到第二个包的位置
+				MoveTo x1, y2
+				//判断第二个包的颜色
+				IfColor x1,y2,baoColor2,0 Then
+    				//鼠标点击选中第二个包
+    				LeftClick 1
+    				//按下键盘R发送包
+					KeyPress "R", 1
+					Delay iTime
+					//脚本重新执行
+    				RestartScript 
+				End If
+    			
+			End If
 		End If
 	End If
 Else    
